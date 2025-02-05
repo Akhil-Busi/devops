@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Reg form</title>
+</head>
+<body>
+    <form class="box" onsubmit="return validateForm(event)">
+
+        <lable for="First Name">First Name::</lable>
+        <input type="text" id="FirstName" name="First name">
+
+        <label for="Last Name">Last Name::</label>
+        <input type="text" id="LastName" name="Last name">
+
+        <label for="Date Of Birth">Date Of Birth::</label>
+        <input type="date" id="DOB">
+
+        <label for="gender">Gender::</label>
+        <div  class="gender-container">    
+            <label for="male">Male</label>
+            <input type="checkbox" id="male" name="gender" value="male">
+      
+            <label for="female">Female</label>
+            <input type="checkbox" id="female" name="gender" value="female">
+        </div>
+
+
+        <label for="Username">Username::</label>
+        <input type="text" id="Username">
+
+        <label for="password">password::</label>
+        <input type="password" id="password">
+
+        <label for="Re-password">Re-password::</label>
+        <input type="password" id="Re-password">
+
+        <input type="submit" value="Submit">
+        <script src="script.js"></script>
+    </form>
+   
+</body>
+</html>
