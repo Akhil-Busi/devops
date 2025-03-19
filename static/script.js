@@ -1,58 +1,102 @@
-// Function to validate the form
 function validateForm(event) {
-    if (!firstname()) {
-        event.preventDefault();  
-        return false;
-    }
-    if (!lastname()) {
-        event.preventDefault();
-        return false;
-    }
-    if (!DOB()) {
-        event.preventDefault();
-        return false;
-    }
-    if (!gender()) {
-        event.preventDefault();
-        return false;
-    }
-    if (!username()) {
-        event.preventDefault();
-        return false;
-    }
-    if (!password()) {
-        event.preventDefault();
-        return false;
-    }
-    return true;
-}
+    event.preventDefault();
+    let isValid = true;
 
-function firstname() {
-    const firstName = document.getElementById("FirstName").value;
+    // Reset error messages
+    document.querySelectorAll('.error').forEach(error => {
+        error.style.display = 'none';
+    });
 
-    const namePattern = /^[A-Za-z]+$/;
-
-    if (!namePattern.test(firstName)) {
-        alert("First name should only contain letters.");
-        return false;
+    // First Name validation
+    const firstName = document.getElementById('firstName').value;
+    if (firstName.length < 2) {
+        document.getElementById('firstNameError').style.display = 'block';
+        isValid = false;
     }
-    return true;
-}
 
-function lastname(){
-    const lastName = document.getElementById("LastName").value;
-
-    const namePattern = /^[A-Za-z]+$/;
-
-    if (!namePattern.test(lastName)) {
-        alert("last name should only contain letters.");
-        return false;
+    // Last Name validation
+    const lastName = document.getElementById('lastName').value;
+    if (lastName.length < 2) {
+        document.getElementById('lastNameError').style.display = 'block';
+        isValid = false;
     }
-    return true;
-}
 
-function DOB(){
-    const DOB = document.getElementById("DOB").value;
+    // Gender validation
+    const gender = document.getElementById('gender').value;
+    if (!gender) {
+        document.getElementById('genderError').style.display = 'block';
+        isValid = false;
+    }
 
-    if("")
+    // Email validation
+    const email = document.getElementById('email').value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        document.getElementById('emailError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Username validation
+    const username = document.getElementById('username').value;
+    if (username.length < 3 || username.length > 20) {
+        document.getElementById('usernameError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Password validation
+    const password = document.getElementById('password').value;
+    if (password.length < 8 || password.length > 20) {
+        document.getElementById('passwordError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Confirm password validation
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    if (password !== confirmPassword) {
+        document.getElementById('confirmPasswordError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Phone validation
+    const phone = document.getElementById('phone').value;
+    const phoneRegex = /^\+?[\d\s-]{10,}$/;
+    if (!phoneRegex.test(phone)) {
+        document.getElementById('phoneError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Date of Birth validation
+    const dob = document.getElementById('dob').value;
+    const today = new Date();
+    const birthDate = new Date(dob);
+    const age = today.getFullYear() - birthDate.getFullYear();
+    if (!dob || age < 13 || birthDate > today) {
+        document.getElementById('dobError').style.display = 'block';
+        isValid = false;
+    }
+
+    // Terms validation
+    const terms = document.getElementById('terms').checked;
+    if (!terms) {
+        document.getElementById('termsError').style.display = 'block';
+        isValid = false;
+    }
+
+    if (isValid) {
+        const formData = {
+            firstName,
+            lastName,
+            gender,
+            email,
+            username,
+            password,
+            phone,
+            dob
+        };
+        console.log('Form Data:', formData);
+        alert('Registration successful!');
+        document.getElementById('registrationForm').reset();
+    }
+
+    return isValid;
 }
